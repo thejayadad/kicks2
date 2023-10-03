@@ -1,21 +1,9 @@
 'use client'
-
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const ProductCard = ({ product }) => {
-  const cardVariants = {
-    initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.5 } },
-  };
-
   return (
-    <motion.div
-      className='border border-gray-300 overflow-hidden'
-      initial='initial'
-      animate='animate'
-      variants={cardVariants}
-    >
+    <div className='border border-gray-300 overflow-hidden transform hover:translate-y-[-10px] transition-transform duration-300'>
       <div className='relative'>
         <img
           src={product.image}
@@ -31,7 +19,7 @@ const ProductCard = ({ product }) => {
           </a>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

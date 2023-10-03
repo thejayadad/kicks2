@@ -2,8 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
 import ProductCard from './ProductCard';
-
-
+import { motion } from 'framer-motion';
 
 const Products = () => {
     const [products, setProducts] = useState([
@@ -99,41 +98,52 @@ const Products = () => {
             category: 'New',
           },
       ]);
-      const [filteredProducts, setFilteredProducts] = useState([...products]);
-      const [selectedCategory, setSelectedCategory] = useState('All');
-      const [currentPage, setCurrentPage] = useState(0); // Changed initial page to 0
-      const productsPerPage = 6;
 
-      useEffect(() => {
-        if (selectedCategory === 'All') {
-          setFilteredProducts([...products]);
-        } else {
-          const filtered = products.filter((product) => product.category === selectedCategory);
-          setFilteredProducts([...filtered]);
-        }
-        setCurrentPage(0);
-      }, [selectedCategory, products]);
+  const [filteredProducts, setFilteredProducts] = useState([...products]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentPage, setCurrentPage] = useState(0);
+  const productsPerPage = 6;
 
-      const handleCategoryChange = (category) => {
-        setSelectedCategory(category);
-      };
+  useEffect(() => {
+    if (selectedCategory === 'All') {
+      setFilteredProducts([...products]);
+    } else {
+      const filtered = products.filter((product) => product.category === selectedCategory);
+      setFilteredProducts([...filtered]);
+    }
+    setCurrentPage(0);
+  }, [selectedCategory, products]);
 
-      const handlePageChange = ({ selected }) => {
-        setCurrentPage(selected);
-      };
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
-      const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
-      const offset = currentPage * productsPerPage;
-      const currentProducts = filteredProducts.slice(offset, offset + productsPerPage);
+  const handlePageChange = ({ selected }) => {
+    setCurrentPage(selected);
+  };
 
-      return (
-<div className='mx-auto max-w-screen-lg py-8'>
-      <h1 className='text-lg font-bold mb-4'>All Products</h1>
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const offset = currentPage * productsPerPage;
+  const currentProducts = filteredProducts.slice(offset, offset + productsPerPage);
+
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: { opacity: 1, transition: { duration: 0.5 } },
+  };
+
+  return (
+    <motion.div
+      className='mx-auto max-w-screen-lg py-8'
+      initial='initial'
+      animate='animate'
+      variants={containerVariants}
+    >
+      <h1 className='text-2xl text-gray-400 font-bold mb-4'>Products</h1>
       <div className='flex justify-center space-x-4 mb-4'>
-        <button
+      <button
           className={`${
             selectedCategory === 'All' ? 'bg-gray-500 text-white' : 'bg-gray-300 text-gray-700'
-          } px-4 py-2 `}
+          } px-4 py-2`}
           onClick={() => handleCategoryChange('All')}
         >
           All
@@ -143,7 +153,7 @@ const Products = () => {
             key={category}
             className={`${
               selectedCategory === category ? 'bg-gray-500 text-white' : 'bg-gray-300 text-gray-700'
-            } px-4 py-2 `}
+            } px-4 py-2`}
             onClick={() => handleCategoryChange(category)}
           >
             {category}
@@ -152,14 +162,21 @@ const Products = () => {
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
         {currentProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <motion.div
+            key={product.id}
+            className='border border-gray-300 overflow-hidden transform hover:translate-y-[-10px] transition-transform duration-300'
+            whileHover={{ y: -10 }}
+          >
+            <ProductCard product={product} />
+          </motion.div>
         ))}
       </div>
       {totalPages > 1 && (
         <div
-        style={{display: 'flex'}}
-        className='flex justify-center mt-4'>
-        <ReactPaginate
+          style={{ display: 'flex' }}
+          className='flex justify-center mt-4'
+        >
+          <ReactPaginate
             previousLabel={'Previous'}
             nextLabel={'Next'}
             breakLabel={'...'}
@@ -170,14 +187,14 @@ const Products = () => {
             containerClassName={'pagination'}
             subContainerClassName={'pages pagination'}
             activeClassName={'active'}
-            pageLinkClassName={'page-link'} // Add this class for page links
-            previousClassName={'page-prev'} // Add this class for Previous link
-            nextClassName={'page-next'} // Add this class for Next link
-            />
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-prev'}
+            nextClassName={'page-next'}
+          />
         </div>
       )}
-    </div>
-      );
-    };
+    </motion.div>
+  );
+};
 
 export default Products;

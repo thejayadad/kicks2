@@ -20,7 +20,7 @@ const Hero = () => {
   return (
     <section className='mx-auto max-w-screen-lg py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
       <div
-        className='col-span-1 sm:col-span-2 md:col-span-1 bg-gray-200 p-4'
+        className='col-span-2 sm:col-span-2 md:col-span-2 bg-gray-200 p-4'
         initial={{ opacity: 0, y: -100 }}
         animate={controls}
       >
@@ -53,18 +53,6 @@ const Hero = () => {
         />
       </motion.div>
 
-      <motion.div
-        className='col-span-1 sm:col-span-1 md:col-span-1 bg-gray-500'
-        initial={{ opacity: 0, y: -100 }}
-        animate={controls}
-        transition={{ delay: 0.6 }}
-      >
-        <img
-          src='https://images.pexels.com/photos/1522381/pexels-photo-1522381.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-          alt='Image 4'
-          className='w-full h-full'
-        />
-      </motion.div>
     </section>
   );
 };
