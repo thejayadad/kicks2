@@ -18,9 +18,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          <FaHeart className="text-xl text-gray-300 cursor-pointer" />
+          <FaHeart className="text-lg text-gray-300 cursor-pointer" />
 
-          <FaShoppingCart className="text-xl text-gray-300 cursor-pointer" />
+          <FaShoppingCart className="text-lg text-gray-300 cursor-pointer" />
 
           {session ? (
             <button
