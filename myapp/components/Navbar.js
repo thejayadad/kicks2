@@ -32,7 +32,7 @@ const Navbar = () => {
           ) : (
             <button
               onClick={() => signIn()}
-              className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 transition duration-300"
+              className="bg-gray-500 text-white px-3 py-1 rounded-md hover:bg-gray-600 transition duration-300"
             >
               Login
             </button>

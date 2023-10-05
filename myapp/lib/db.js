@@ -1,14 +1,18 @@
 import mongoose from 'mongoose';
+import Product from '@/models/Product';
+import data from './data';
 
 const connection = {};
 
 async function connect() {
   if (connection.isConnected) {
+    console.log("connected")
     return;
   }
   if (mongoose.connections.length > 0) {
     connection.isConnected = mongoose.connections[0].readyState;
     if (connection.isConnected === 1) {
+      console.log("connected")
       return;
     }
     await mongoose.disconnect();
@@ -33,6 +37,7 @@ const convertDocToObj = (doc) => {
 
   return doc
 }
+
 
 const db = { connect, disconnect, convertDocToObj };
 export default db;

@@ -1,13 +1,17 @@
-import data from "@/lib/data";
+import Product from "../../../models/Product";
 import db from "@/lib/db";
-import Product from "@/models/Product";
 
-const handler = async(req, res) => {
+
+
+export async function POST(req) {
     await db.connect()
-    await Product.deleteMany()
-    await Product.insertMany(data.products)
-    await db.disconnect()
-    res.status(200).json({msg: 'seeded successfully'})
-}
 
-export default handler
+    try {
+        const body = await req.json()
+        const newProduct = await Product.create(body)
+
+        return new Response(JSON.stringify(newProduct), { status: 201 })
+    } catch (error) {
+        return new Response(JSON.stringify(null), { status: 500 })
+    }
+}

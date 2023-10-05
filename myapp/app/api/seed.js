@@ -14,8 +14,8 @@ import db from "@/lib/db";
 
 export async function Post(req){
     await db.connect()
-    await Product.insertMany()
-    await Product.insertMany(data.products)
-    return new Response(JSON.stringify("Its added"), { status: 201 })
+    // await Product.insertMany()
+    const product = await Product.insertMany(data.products)
+    return new Response(JSON.stringify(product), { status: 201 })
 
 }
