@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link';
 import React from 'react';
 
 const ProductCard = ({ product }) => {
@@ -14,9 +15,9 @@ const ProductCard = ({ product }) => {
           <h2 className='text-md font-semibold'>{product.name}</h2>
           <p className='text-gray-200'>{product.category}</p>
           <p className='text-sm font-bold mt-2'>${product.price}</p>
-          <a href='#' className='text-blue-400 hover:text-blue-600'>
+          <Link href={`/product/${product._id}`} className='text-blue-400 hover:text-blue-600'>
             Details
-          </a>
+          </Link>
         </div>
       </div>
     </div>
